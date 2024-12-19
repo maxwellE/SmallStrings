@@ -7,8 +7,8 @@
 @implementation AppTest
 
 - (void)testLocalization {
-    XCTAssertTrue([@"en_value1" isEqual:[App fetchLocalizationValueForKey:@"string1"]]);
-    XCTAssertTrue([@"does_not_exist" isEqual:[App fetchLocalizationValueForKey:@"does_not_exist"]]);
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    XCTAssertTrue([@"does_not_exist" isEqual:[App fetchLocalizationValueForKey:@"does_not_exist" bundle:bundle]]);
 }
 
 @end

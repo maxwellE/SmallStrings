@@ -2,6 +2,6 @@
 
 @interface App : NSObject
 
-+ (NSString *)fetchLocalizationValueForKey:(NSString *)key;
++ (NSString *)fetchLocalizationValueForKey:(NSString *)key bundle:(NSBundle *)bundle;
 
 @end

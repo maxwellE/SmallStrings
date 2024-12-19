@@ -7,8 +7,9 @@
 @implementation ModuleTest
 
 - (void)testLocalization {
-    XCTAssertTrue([@"en_module_value1" isEqual:[Module fetchLocalizationValueForKey:@"string1"]]);
-    XCTAssertTrue([@"does_not_exist" isEqual:[Module fetchLocalizationValueForKey:@"does_not_exist"]]);
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    XCTAssertTrue([@"en_module_value1" isEqual:[Module fetchLocalizationValueForKey:@"string1" bundle:bundle]]);
+    XCTAssertTrue([@"does_not_exist" isEqual:[Module fetchLocalizationValueForKey:@"does_not_exist" bundle:bundle]]);
 }
 
 @end

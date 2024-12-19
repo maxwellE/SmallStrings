@@ -3,8 +3,8 @@
 
 @implementation Module
 
-+ (NSString *)fetchLocalizationValueForKey:(NSString *)key {
-    return SSTStringForKeyWithBundleAndSubdirectoryAndTargetName(key, [NSBundle bundleForClass:[self class]], nil, @"example_Source_Module_module");
++ (NSString *)fetchLocalizationValueForKey:(NSString *)key bundle: (NSBundle *)bundle {
+    return SSTStringForKey(key, @"en", bundle);
 }
 
 @end

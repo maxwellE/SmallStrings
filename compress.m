@@ -2,6 +2,7 @@
 #include <Foundation/Foundation.h>
 
 int main(int argc, char *argv[]) {
+    NSLog(@"Hello, World!");
     if (argc != 3) {
         return 1;
     }
@@ -9,6 +10,7 @@ int main(int argc, char *argv[]) {
     NSString *outFile = @(argv[2]);
     NSData *data = [NSData dataWithContentsOfFile:inFile options:NSDataReadingMappedIfSafe error:nil];
     if (!data) {
+        NSLog(@"No Data Found");
         return 1;
     }
     size_t outBufferLength = data.length + sizeof(uint64_t) + 500 * 1024;

@@ -1,3 +1,7 @@
 build --macos_minimum_os=13.0
 build --host_macos_minimum_os=13.0
-build --apple_platform_type=macos
+build --features apple.arm64_simulator_use_device_deps
+build --ios_minimum_os=15.0
+test --ios_simulator_device="iPhone 13"
+build --spawn_strategy=worker,local
+

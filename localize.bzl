@@ -2,14 +2,11 @@ def _localize_impl(ctx):
     localized_strings = {}
     lzfse_output_files = {}
     placeholder_files = []
-    target_name_prefix = ""
-    if ctx.attr.target_name:
-        target_name_prefix = ctx.attr.target_name + "."
     for src in ctx.files.srcs:
         locale = src.dirname.split("/")[-1].split(".")[0]
         localized_strings[locale] = _create_plutil_json_file(ctx, src, locale)
         lzfse_output_files[locale] = ctx.actions.declare_file(
-            "{target_name_prefix}{locale}.values.json.lzfse".format(target_name_prefix = target_name_prefix, locale = locale),
+            "{locale}.values.json.lzfse".format(locale = locale),
         )
         placeholder_files.append(_create_placeholder_file(ctx, src))
     localized_strings_json_file = ctx.actions.declare_file(
@@ -27,7 +24,7 @@ def _localize_impl(ctx):
         json.encode(_stringify_file_dict(lzfse_output_files)),
     )
     keys_json_lzfse_file = ctx.actions.declare_file(
-        "{target_name_prefix}keys.json.lzfse".format(target_name_prefix = target_name_prefix),
+        "keys.json.lzfse",
     )
     args = ctx.actions.args()
     args.add_all([
@@ -49,7 +46,7 @@ def _localize_impl(ctx):
     )
 
 def _create_placeholder_file(ctx, src):
-    output = ctx.actions.declare_file(src.dirname + "/" + ctx.attr.target_name + src.basename)
+    output = ctx.actions.declare_file(src.dirname + "/" + src.basename)
     ctx.actions.write(
         output,
         "\"placeholder\" = \"_\";\n",
@@ -88,9 +85,6 @@ localize = rule(
     implementation = _localize_impl,
     attrs = {
         "srcs": attr.label_list(allow_files = [".strings"]),
-        "target_name": attr.string(
-            doc = "A string to key the localization artifacts by, this is optional since non-static builds do not require for assets to have unique name in the final bundle",
-        ),
         "_localize_tool": attr.label(
             default = Label("@SmallStrings//:localize"),
             executable = True,

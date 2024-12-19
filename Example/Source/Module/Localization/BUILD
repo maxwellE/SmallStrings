@@ -6,7 +6,6 @@ localize(
         "en.lproj/Localizable.strings",
         "es.lproj/Localizable.strings",
     ],
-    target_name = "example_Source_Module_module",
     visibility = [
         "//Example/Source/Module:__pkg__",
     ],
