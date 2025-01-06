@@ -45,7 +45,7 @@ NSDictionary <NSString *, NSString *> *SSTCreateKeyToString(NSString *locale, NS
     return keyToString; // Avoid -copy to be a bit faster
 }
 
-NSString * _Nonnull SSTStringForKey(NSString * _Nonnull key, NSString * _Nonnull locale, NSBundle * _Nonnull bundle, NSString * _Nonnull fallbackText)
+NSString * _Nonnull SSTStringForKey(NSString * _Nonnull key, NSString * _Nonnull locale, NSBundle * _Nonnull bundle)
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -53,5 +53,5 @@ NSString * _Nonnull SSTStringForKey(NSString * _Nonnull key, NSString * _Nonnull
     });
     // Haven't tested with CFBundleAllowMixedLocalizations set to YES, although it seems like that'd be handled by the
     // NSLocalizedString fallback
-    return sKeyToString[key] ?: fallbackText;
+    return sKeyToString[key];
 }
