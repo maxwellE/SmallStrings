@@ -45,7 +45,7 @@ NSDictionary <NSString *, NSString *> *SSTCreateKeyToString(NSString *locale, NS
     return keyToString; // Avoid -copy to be a bit faster
 }
 
-NSString * _Nonnull SSTStringForKey(NSString * _Nonnull key, NSString * _Nonnull locale, NSBundle * _Nonnull bundle)
+NSString * _Nullable SSTStringForKey(NSString * _Nonnull key, NSString * _Nonnull locale, NSBundle * _Nonnull bundle)
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
