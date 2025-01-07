@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import <compression.h>
 
-static NSString *currentLocale = nil;
+static NSString *currentLocale = @"";
 static NSDictionary <NSString *, NSString *> *sKeyToString = nil;
 
 NSData * SSTDecompressedDataForFile(NSURL *file)
@@ -52,12 +52,11 @@ NSString * _Nullable SSTStringForKey(NSString * _Nonnull key, NSString * _Nonnul
 
     if (![locale isEqualToString:currentLocale]) {
         onceToken = 0;
+        currentLocale = locale;
     }
 
-    currentLocale = locale;
-
     dispatch_once(&onceToken, ^{
-        sKeyToString = SSTCreateKeyToString(currentLocale, bundle);
+        sKeyToString = SSTCreateKeyToString(locale, bundle);
     });
     // Haven't tested with CFBundleAllowMixedLocalizations set to YES, although it seems like that'd be handled by the
     // NSLocalizedString fallback
